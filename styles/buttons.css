@@ -23,8 +23,8 @@
   white-space: nowrap;
   word-wrap: break-word;
   width: 80%;
-  height: 100%;
-  margin: 0% 10%;
+  height: 60%;
+  margin: 5% 10%;
 }
 
 .button:hover, input[type=submit]:hover {
