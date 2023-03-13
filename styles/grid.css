@@ -83,7 +83,10 @@
     grid-row-gap: 0px;
     }
     
-    .question { grid-area: 1 / 1 / 2 / 2; }
+    .question {
+        grid-area: 1 / 1 / 2 / 2;
+        overflow: hidden;
+    }
     .answer { grid-area: 2 / 1 / 3 / 2; }
 
 
