@@ -1,20 +1,18 @@
 .letterCircle {
     border-radius: 50%;
-    font-size: larger;
-    width: 3em;
-    height: 3em;
+    width: 1em;
+    height: 1em;
+    border: 0.15rem solid blue; 
     padding: 0.5rem;
     margin: 2%;
-    border: 0.25rem solid blue;
     text-align: center;
     
 }
 
-@media only screen and (max-width: 600px) {
+    @media (min-width: 768px) {
         .letterCircle{
-            font-size: medium;
-            width: 1em;
-            height: 1em;
-            border: 0.15rem solid blue;
+            width: 3em;
+            height: 3em;
+            border: 0.25rem solid blue;
         }
-}
+    }
