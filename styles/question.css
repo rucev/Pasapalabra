@@ -1,0 +1,11 @@
+input[type=text] {
+    background-color: silver;
+    margin:0% 10%;
+    width: 75%;
+}
+
+@media (min-width: 768px) {
+    input[type=text] {
+        padding: 0.8em;
+    } 
+}
