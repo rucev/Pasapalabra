@@ -1,30 +1,26 @@
 .mainContainer {
-    margin: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.lettersContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     max-width: 90%;
-    min-height: 100rem;
+    margin: 5%;
 }
-
-.mainGrid {
-    display: grid;
-    grid-template-columns: repeat(5, 20%);
-    grid-template-rows: 15rem 10rem 5rem;
-}
-
-    .letters { grid-area: 1 / 1 / 2 / 6; }
-    .scoreboard { grid-area: 2 / 1 / 3 / 2; background-color: purple;}
-    .exit { grid-area: 3 / 1 / 4 / 2; background-color: blanchedalmond;}
-    .question { grid-area: 2 / 2 / 3 / 6; background-color: green;}
-    .pass { grid-area: 3 / 2 / 4 / 4; background-color: red;}
-    .send { grid-area: 3 / 4 / 4 / 6; background-color: violet;}
-
-  
 .lettersGrid {
     display: grid;
-    grid-template-columns: repeat(9, 11%);
-    grid-template-rows: repeat(3, 5rem);
-    grid-column-gap: 1px;
-    grid-row-gap: 1px;
+    grid-template-columns: repeat(9, 5em);
+    grid-template-rows: repeat(3, 5em);
+    grid-column-gap: 0.55em;
+    grid-row-gap: 0.55em;
 }
+
     .a { grid-area: 1 / 1 / 2 / 2; background-color: aquamarine;}
     .b { grid-area: 1 / 2 / 2 / 3; }
     .c { grid-area: 1 / 3 / 2 / 4; background-color: aquamarine;}
@@ -53,12 +49,44 @@
     .y { grid-area: 3 / 8 / 4 / 9; background-color: aquamarine;}
     .z { grid-area: 3 / 9 / 4 / 10; }
 
+.userInterfaceContainer{
+    min-width: 90%;
+    padding: 5%;
+}
+
+.userInterfaceGrid {
+    display: grid;
+    grid-template-columns: repeat(5, 20%);
+    grid-template-rows: 18vh 9vh;
+}
+
+    .scoreboard { grid-area: 1 / 1 / 2 / 2; background-color: purple;}
+    .question { grid-area: 1 / 2 / 2 / 6;  background-color: blanchedalmond;}
+    .exit { grid-area: 2 / 1 / 3 / 2; background-color: green;}
+    .pass { grid-area: 2 / 2 / 3 / 4; background-color: red;}
+    .send { grid-area: 2 / 4 / 3 / 6; background-color: violet;}
+
 .scoreboardGrid {
     display: grid;
     display: grid;
     grid-template-columns: 100%;
     grid-template-rows: 60% 40%;
-    }
-    
+}
     .time { grid-area: 1 / 1 / 2 / 2; }
     .score { grid-area: 2 / 1 / 3 / 2; }
+
+
+@media only screen and (max-width: 600px) {
+    .lettersGrid{
+        grid-template-columns: repeat(9, 2.25em);
+        grid-template-rows: repeat(3, 2.25em);
+        grid-column-gap: 0.15em;
+        grid-row-gap: 0.15em;
+    }
+
+    .userInterfaceGrid{
+        display: grid;
+        grid-template-columns: repeat(5, 20%);
+        grid-template-rows: 12vh 6vh;
+    }
+}
