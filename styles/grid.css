@@ -63,8 +63,16 @@
     .scoreboard { grid-area: 1 / 1 / 2 / 2;}
     .questionArea { grid-area: 1 / 2 / 2 / 6; }
     .exit { grid-area: 2 / 1 / 3 / 2; }
-    .button1 { grid-area: 2 / 2 / 3 / 4; }
-    .button2 { grid-area: 2 / 4 / 3 / 6; }
+    .button1 {
+        grid-area: 2 / 2 / 3 / 4;
+        display: flex;
+        justify-content: center;
+    }
+    .button2 {
+        grid-area: 2 / 4 / 3 / 6;
+        display: flex;
+        justify-content: center;
+    }
 
 .scoreboardGrid {
     display: grid;
@@ -83,11 +91,11 @@
     grid-row-gap: 0px;
     }
     
-    .question {
+    .information {
         grid-area: 1 / 1 / 2 / 2;
         overflow: hidden;
     }
-    .answer { grid-area: 2 / 1 / 3 / 2; }
+    .inputBar { grid-area: 2 / 1 / 3 / 2; }
 
 
 @media (min-width: 768px) {
