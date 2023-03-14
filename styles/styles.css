@@ -19,20 +19,21 @@
     --blank500: #232323;
     --blank400: #414141;
     --blank300: #808080;
-    --blank200: #c2c2c2;
+    --blank200: #dedede;
     --blank100: #f8f8ff;
     --green300: #0a4100;
     --green200: #287a19;
     --green100: #67cf55;
     --red300: #4e0505;
     --red200: #890000;
-    --red100: #a71616;
+    --red100: #cf5047;
 }
 
 
 * {
     background: var(--blank100);
     font-family: 'Sono', sans-serif;
+    font-size: small;
 }
 
 .hidden {
@@ -40,6 +41,7 @@
 }
 
 h1{
+    margin-block-start: 0;
     margin-block-end: 0;
     text-shadow: var(--blue400) 2px 0 1px;
     color: var(--blue200);
@@ -51,5 +53,10 @@ h1{
 @media (min-width: 768px) {
     h1{
         font-size: 5em;
+    }
+    * {
+        background: var(--blank100);
+        font-family: 'Sono', sans-serif;
+        font-size: medium;
     }
 }
