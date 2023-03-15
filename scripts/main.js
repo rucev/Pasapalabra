@@ -33,8 +33,9 @@ export const startGame = () => {
   
 }
 
-const displayQuestion = (questionInfo, letter, displayInfo) => {
-  displayInfo.innerHTML = questionInfo.question;
+export const displayQuestion = (gameInfo, turn, info) => {
+  let letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+  info.innerHTML = gameInfo.questions[turn].question;
   letter.classList.add("focus");
 };
 

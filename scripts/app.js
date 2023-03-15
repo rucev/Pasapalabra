@@ -1,4 +1,4 @@
-import { displayGame, displayMenu, uploadAnswer } from "./main.js";
+import { displayGame, displayMenu, uploadAnswer, displayQuestion } from "./main.js";
 import { questions } from "./questions.js";
 import { setGameInfo } from "./game.js";
 
@@ -48,19 +48,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
     //TODO: save score to local storage 
   });
 
-
   buttonSend.addEventListener("click", function (event) {
     event.preventDefault();
+    console.log(turn)
     let userAnswer = document.querySelector(".answer").value.toLowerCase();
     gameInfo = uploadAnswer(gameInfo, turn, userAnswer, letter, buttonNext, buttonPass, buttonSend)
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     if(gameInfo.questions[turn].isAnsweredCorrectly === false) {
       info.innerHTML = "Oooh, la respuesta correcta era " + gameInfo.questions[turn].answer;
+      turn < 26 ? turn += 1 : turn = 0;
     } else {
-      turn += 1
-      letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
-      info.innerHTML = gameInfo.questions[turn].question;
-      letter.classList.add("focus");
+      gameInfo.questions[turn].isAlreadyAnswered ? turn += 1 : displayQuestion(gameInfo, turn, info)
     }
   });
 
@@ -70,17 +68,21 @@ document.addEventListener("DOMContentLoaded", (event) => {
     buttonPass.classList.remove("hidden");
     buttonSend.classList.remove("hidden");
     info.innerHTML = gameInfo.questions[turn].question;
-    turn += 1
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
-    info.innerHTML = gameInfo.questions[turn].question;
-    letter.classList.add("focus");
+    letter.classList.remove("focus");
+    turn < 26 ? turn += 1 : turn = 0;
+    gameInfo.questions[turn].isAlreadyAnswered ? turn += 1 : displayQuestion(gameInfo, turn, info)
   });
 
   buttonPass.addEventListener("click", function (event) {
+    event.preventDefault();
+    letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+    letter.classList.remove("focus");
+    turn < 26 ? turn += 1 : turn = 0;
+    gameInfo.questions[turn].isAlreadyAnswered ? turn += 1 : displayQuestion(gameInfo, turn, info)
   });
 
 
 });
-
 
 
