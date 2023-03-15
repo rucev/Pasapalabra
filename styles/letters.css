@@ -13,6 +13,10 @@
     cursor: default;
 }
 
+.focus {
+    border: 0.15rem solid var(--orange300);
+}
+
 .correct {
     border: 0.15rem solid var(--green300);
     background-image: radial-gradient(circle, var(--green100), var(--green200));
@@ -43,4 +47,9 @@
         border: 0.25rem solid var(--red300);
         background-image: radial-gradient(circle, var(--red100), var(--red200));
     }
+
+    .focus {
+        border: 0.25rem solid var(--orange300);
+    }
+    
 }
