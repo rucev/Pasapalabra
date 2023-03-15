@@ -33,7 +33,6 @@ export const createQuestionsList = (questions) => {
 export const setGameInfo = (questions) => {
   let gameInfo = {};
   gameInfo.questions = createQuestionsList(questions);
-  gameInfo.roundTurn = 0;
   gameInfo.isGameOver = false;
   return gameInfo;
 };
