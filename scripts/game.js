@@ -16,7 +16,7 @@ const setQuestionByLetter = (questions, letterPosition, letter) => {
   return question;
 };
 
-const createQuestionsList = (questions) => {
+export const createQuestionsList = (questions) => {
   const alphabet = "abcdefghijklmnñopqrstuvwxyz"
   let questionList = [];
   for (let letterPosition = 0; letterPosition < alphabet.length; letterPosition++) {
@@ -33,7 +33,7 @@ const createQuestionsList = (questions) => {
 export const setGameInfo = (questions) => {
   let gameInfo = {};
   gameInfo.questions = createQuestionsList(questions);
-  gameInfo.score = 0;
+  gameInfo.roundTurn = 0;
   gameInfo.isGameOver = false;
   return gameInfo;
 };

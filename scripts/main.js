@@ -33,3 +33,66 @@ export const startGame = () => {
   
 }
 
+const displayQuestion = (questionInfo, letter, displayInfo) => {
+  displayInfo.innerHTML = questionInfo.question;
+  letter.classList.add("focus");
+};
+
+const answerQuestion = (questionInfo, buttonSend, buttonPass) => {
+  let userAnswer = "";
+  buttonSend.addEventListener("click", function (event) {
+    event.preventDefault();
+    userAnswer = document.querySelector(".answer").value.toLowerCase();
+    if (questionInfo.answer === userAnswer) {
+      letter.classList.add("correct");
+      letter.classList.remove("focus");
+      document.querySelector(".answer").value = "";
+    } else {
+      letter.classList.remove("focus");
+      letter.classList.add("incorrect");
+      document.querySelector(".answer").value = "";
+    }
+  });
+  buttonPass.addEventListener("click", function (event) {
+    event.preventDefault();
+    letter.classList.remove("focus");
+    document.querySelector(".answer").value = "";
+  });
+  
+};
+
+/* TODO: look how to add this:
+    if (gameInfo.questions[i].isAnsweredCorrectly === false) {
+      displayInfo.innerHTML = "Oooh, la respuesta correcta era " + questionInfo.answer;
+      buttonNext.classList.remove("hidden");
+      buttonPass.classList.add("hidden");
+      buttonSend.classList.add("hidden");
+      buttonNext.addEventListener("click", function (event) {
+        event.preventDefault();
+        buttonNext.classList.add("hidden");
+        buttonPass.classList.remove("hidden");
+        buttonSend.classList.remove("hidden");
+        return playRound(
+          gameInfo,
+          displayInfo,
+          buttonSend,
+          buttonPass,
+          buttonNext,
+          i + 1
+        );
+      });
+*/
+
+//TODO: fix game loop
+
+const playGame = (displayInfo, buttonSend, buttonPass, buttonNext) => {
+  let questionList = createQuestionsList(questions);
+  const alphabet = "abcdefghijklmnñopqrstuvwxyz"
+  for(let char = 0; char < alphabet.length; char++) {
+    let letter = document.querySelector(`.${alphabet[char]}`);
+    displayQuestion(questionList[char], letter, displayInfo)
+    answerQuestion(questionList[char], buttonSend, buttonPass)
+  }
+
+
+};
