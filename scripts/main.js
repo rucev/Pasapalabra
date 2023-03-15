@@ -18,13 +18,14 @@ export const setDisplayToMatch = (buttonStart, buttonRank, usernameBar, buttonQu
   showItem(answerBar);
 };
 
-export const setDisplayToMenu = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, answerBar) => {
+export const setDisplayToMenu = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar) => {
   showItem(buttonStart);
   showItem(buttonRank);
   showItem(usernameBar);
   hideItem(buttonQuit);
   hideItem(buttonSend);
   hideItem(buttonPass);
+  hideItem(buttonNext);
   hideItem(answerBar);
 };
 
