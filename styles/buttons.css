@@ -42,13 +42,15 @@
   box-shadow: var(--blank400) 0 4px 12px;
 }
 
-.pass {
+.pass, .next {
   background-image: radial-gradient(circle, var(--blue100), var(--blue300));
   border: 0.15em solid var(--blue400);
 }
 
 .pass:hover,
-.pass:focus {
+.pass:focus,
+.next:hover,
+.next:focus {
   background-image: radial-gradient(circle, var(--blue100), var(--blue300));
   box-shadow: var(--blank400) 0 4px 12px;
 }
