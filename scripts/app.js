@@ -1,4 +1,4 @@
-import { setDisplayToMatch, setDisplayToMenu } from "./main.js";
+import { displayGame, displayMenu, uploadAnswer } from "./main.js";
 import { questions } from "./questions.js";
 import { setGameInfo } from "./game.js";
 
@@ -27,17 +27,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   buttonStart.addEventListener("click", function (event) {
     event.preventDefault();
-    setDisplayToMatch(
-      buttonStart,
-      buttonRank,
-      usernameBar,
-      buttonQuit,
-      buttonSend,
-      buttonPass,
-      answerBar
-    );
+    displayGame(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, answerBar);
     username = document.querySelector(".name").value;
-    gameInfo = setGameInfo(questions)
+    gameInfo = setGameInfo(questions, username)
     info.innerHTML = gameInfo.questions[turn].question;
     letter.classList.add("focus");
     //TODO: add startGame 
@@ -45,16 +37,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   buttonQuit.addEventListener("click", function (event) {
     event.preventDefault();
-    setDisplayToMenu(
-      buttonStart,
-      buttonRank,
-      usernameBar,
-      buttonQuit,
-      buttonSend,
-      buttonPass,
-      buttonNext,
-      answerBar
-    );
+    displayMenu(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar);
     letters.forEach((letter) => {
       letter.classList.remove("focus");
       letter.classList.remove("correct");
@@ -62,7 +45,6 @@ document.addEventListener("DOMContentLoaded", (event) => {
     });
     document.querySelector(".name").value = "";
     username = "";
-    gameInfo = setGameInfo(questions)
     //TODO: save score to local storage 
   });
 
@@ -70,20 +52,35 @@ document.addEventListener("DOMContentLoaded", (event) => {
   buttonSend.addEventListener("click", function (event) {
     event.preventDefault();
     let userAnswer = document.querySelector(".answer").value.toLowerCase();
-    if (gameInfo.questions[turn].answer === userAnswer) {
-      letter.classList.add("correct");
-      letter.classList.remove("focus");
-      document.querySelector(".answer").value = "";
+    gameInfo = uploadAnswer(gameInfo, turn, userAnswer, letter, buttonNext, buttonPass, buttonSend)
+    letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+    if(gameInfo.questions[turn].isAnsweredCorrectly === false) {
+      info.innerHTML = "Oooh, la respuesta correcta era " + gameInfo.questions[turn].answer;
     } else {
-      letter.classList.remove("focus");
-      letter.classList.add("incorrect");
-      document.querySelector(".answer").value = "";
+      turn += 1
+      letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+      info.innerHTML = gameInfo.questions[turn].question;
+      letter.classList.add("focus");
     }
+  });
+
+  buttonNext.addEventListener("click", function (event) {
+    event.preventDefault();
+    buttonNext.classList.add("hidden");
+    buttonPass.classList.remove("hidden");
+    buttonSend.classList.remove("hidden");
+    info.innerHTML = gameInfo.questions[turn].question;
     turn += 1
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     info.innerHTML = gameInfo.questions[turn].question;
     letter.classList.add("focus");
   });
 
+  buttonPass.addEventListener("click", function (event) {
+  });
+
 
 });
+
+
+

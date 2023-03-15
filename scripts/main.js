@@ -8,7 +8,7 @@ const showItem = (item) => {
   item.classList.remove("hidden");
 };
 
-export const setDisplayToMatch = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, answerBar) => {
+export const displayGame = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, answerBar) => {
   hideItem(buttonStart);
   hideItem(buttonRank);
   hideItem(usernameBar);
@@ -18,7 +18,7 @@ export const setDisplayToMatch = (buttonStart, buttonRank, usernameBar, buttonQu
   showItem(answerBar);
 };
 
-export const setDisplayToMenu = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar) => {
+export const displayMenu = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar) => {
   showItem(buttonStart);
   showItem(buttonRank);
   showItem(usernameBar);
@@ -61,38 +61,25 @@ const answerQuestion = (questionInfo, buttonSend, buttonPass) => {
   
 };
 
-/* TODO: look how to add this:
-    if (gameInfo.questions[i].isAnsweredCorrectly === false) {
-      displayInfo.innerHTML = "Oooh, la respuesta correcta era " + questionInfo.answer;
-      buttonNext.classList.remove("hidden");
-      buttonPass.classList.add("hidden");
-      buttonSend.classList.add("hidden");
-      buttonNext.addEventListener("click", function (event) {
-        event.preventDefault();
-        buttonNext.classList.add("hidden");
-        buttonPass.classList.remove("hidden");
-        buttonSend.classList.remove("hidden");
-        return playRound(
-          gameInfo,
-          displayInfo,
-          buttonSend,
-          buttonPass,
-          buttonNext,
-          i + 1
-        );
-      });
-*/
+
 
 //TODO: fix game loop
 
-const playGame = (displayInfo, buttonSend, buttonPass, buttonNext) => {
-  let questionList = createQuestionsList(questions);
-  const alphabet = "abcdefghijklmnñopqrstuvwxyz"
-  for(let char = 0; char < alphabet.length; char++) {
-    let letter = document.querySelector(`.${alphabet[char]}`);
-    displayQuestion(questionList[char], letter, displayInfo)
-    answerQuestion(questionList[char], buttonSend, buttonPass)
+export const uploadAnswer = (gameInfo, turn, userAnswer, letter, buttonNext, buttonPass, buttonSend) => {
+  gameInfo.questions[turn].isAlreadyAnswered = true;
+  if (gameInfo.questions[turn].answer === userAnswer) {
+    letter.classList.add("correct");
+    letter.classList.remove("focus");
+    document.querySelector(".answer").value = "";
+    gameInfo.questions[turn].isAnsweredCorrectly = true;
+  } else {
+    letter.classList.remove("focus");
+    letter.classList.add("incorrect");
+    document.querySelector(".answer").value = "";
+    gameInfo.questions[turn].isAnsweredCorrectly = false;
+    buttonNext.classList.remove("hidden");
+    buttonPass.classList.add("hidden");
+    buttonSend.classList.add("hidden");
   }
-
-
-};
+  return gameInfo
+}

@@ -12,7 +12,6 @@ const setQuestionByLetter = (questions, letterPosition, letter) => {
   question.question = randomQuestion.question;
   question.answer = randomQuestion.answer;
   question.isAlreadyAnswered = false;
-  question.isAnsweredCorrectly = false;
   return question;
 };
 
@@ -30,10 +29,11 @@ export const createQuestionsList = (questions) => {
   return questionList;
 };
 
-export const setGameInfo = (questions) => {
+export const setGameInfo = (questions, username) => {
   let gameInfo = {};
   gameInfo.questions = createQuestionsList(questions);
   gameInfo.isGameOver = false;
+  gameInfo.user = username
   return gameInfo;
 };
 
