@@ -36,7 +36,6 @@ export const setGameInfo = (questions, username) => {
 };
 
 const skipToUnansweredQuestion = (gameInfo, turn) => {
-  console.log(gameInfo.questions[turn].isAlreadyAnswered)
   if(gameInfo.questions[turn].isAlreadyAnswered === true){
     turn < 26 ? turn += 1 : turn = 0;
     return skipToUnansweredQuestion(gameInfo, turn)

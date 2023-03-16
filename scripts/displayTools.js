@@ -103,9 +103,8 @@ export const displayRanking = (ranking, info) => {
     info.innerHTML = "Aún no hay partidas registradas. ¡Juega ya y estrena el ranking!";
   } else {
     let rankingInfo = "MEJORES PUNTUACIONES";
-    console.log(highScores)
     for (let i = 0; i < highScores.length; i++) {
-      rankingInfo += `<br>${i+1}. ${highScores[i].username} con ${highScores[i].score} aciertos y ${highScores[i].errors} fallos.`;
+      rankingInfo += `<br>${i+1}. ${highScores[i].username.toUpperCase()} con ${highScores[i].score} aciertos y ${highScores[i].errors} fallos.`;
     };
     info.innerHTML = rankingInfo;
   };
