@@ -2,7 +2,7 @@ input[type=text] {
     background-color: var(--blank200);
     border: 0.15em solid var(--blank300);
     border-radius: 0.15em;
-    margin:0%;
+    margin-top: 0.15em;
     width: 100%;
 }
 
