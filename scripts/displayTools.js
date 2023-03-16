@@ -1,3 +1,5 @@
+import { countErrors } from "./gameTools.js";
+
 export const hideItem = (...items) => {
   items.forEach((item) => {
     item.classList.add("hidden");
@@ -31,10 +33,18 @@ export const displayMenu = (
   buttonSend,
   buttonPass,
   buttonNext,
-  answerBar
+  answerBar,
+  buttonRestart
 ) => {
   showItem(buttonStart, buttonRank, usernameBar);
-  hideItem(buttonQuit, buttonSend, buttonPass, buttonNext, answerBar);
+  hideItem(
+    buttonQuit,
+    buttonSend,
+    buttonPass,
+    buttonNext,
+    answerBar,
+    buttonRestart
+  );
 };
 
 export const displayQuestion = (gameInfo, turn, info) => {
@@ -68,4 +78,34 @@ export const cleanScreen = (letters, score, info) => {
   document.querySelector(".name").value = "";
   score.innerHTML = 0;
   info.innerHTML = "Para jugar introduce tu nombre. Envia la respuesta de cada pregunta pulsando el botón enviar, pasa pulsando el botón pasapalabra. ¡Controla tanto el tiempo como tus fallos!";
+};
+
+export const gameOver = (
+  gameInfo,
+  count,
+  info,
+  buttonQuit,
+  buttonSend,
+  buttonPass,
+  buttonNext,
+  answerBar,
+  buttonRestart
+) => {
+  hideItem(buttonQuit, buttonSend, buttonPass, buttonNext, answerBar);
+  showItem(buttonRestart);
+  const errors = countErrors(gameInfo);
+  info.innerHTML = `Tu puntuación es de ${count} aciertos y ${errors} fallos.`;
+};
+
+export const saveRanking = (ranking) => {
+  localStorage.setItem("save-pasapalabra", JSON.stringify(ranking));
+};
+
+export const loadRanking = () => {
+  let data = localStorage.getItem("save-pasapalabra");
+  if (data !== null) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  };
 };

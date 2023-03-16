@@ -1,6 +1,6 @@
-import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen } from "./displayTools.js";
+import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen, gameOver, saveRanking, loadRanking} from "./displayTools.js";
 import { questions } from "./questions.js";
-import { setGameInfo, setNextTurn } from "./gameTools.js";
+import { setGameInfo, setNextTurn, updateRanking } from "./gameTools.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   let ranking = [];
@@ -9,11 +9,10 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let turn = 0;
   let count = 0;
 
-/*TODO: load ranking local storage
-  window.onload = (event) => {};
-*/
+  window.onload = (event) => {
+    ranking = loadRanking();
+  };
 
-  const letters = document.querySelectorAll(".letterCircle");
   let info = document.querySelector(".information");
   let score = document.querySelector(".score");
   let usernameBar = document.querySelector(".name");
@@ -24,7 +23,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let buttonSend = document.querySelector(".send");
   let buttonPass = document.querySelector(".pass");
   let buttonNext = document.querySelector(".next");
+  let buttonRestart = document.querySelector(".restart");
 
+  const letters = document.querySelectorAll(".letterCircle");
   let letter = document.querySelector(".a");
 
   buttonStart.addEventListener("click", (event) => {
@@ -37,12 +38,17 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   buttonQuit.addEventListener("click", (event) => {
     event.preventDefault();
-    displayMenu(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar);
+    gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
+  });
+
+  buttonRestart.addEventListener("click", (event) => {
+    event.preventDefault();
+    saveRanking(updateRanking(gameInfo, count, ranking))
+    displayMenu(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);
     cleanScreen(letters, score, info)
     username = "";
     gameInfo = {};
     turn = 0;
-    //TODO: save score to local storage 
   });
 
   buttonSend.addEventListener("click", (event) => {
@@ -59,7 +65,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
       score.innerHTML = count;
       letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
       turn = setNextTurn(gameInfo, turn, letter);
-      displayQuestion(gameInfo, turn, info)
+      turn >= 0 ? displayQuestion(gameInfo, turn, info) : gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
     }
   });
 
@@ -69,14 +75,14 @@ document.addEventListener("DOMContentLoaded", (event) => {
     hideItem(buttonNext)
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     turn = setNextTurn(gameInfo, turn, letter);
-    displayQuestion(gameInfo, turn, info)
+    turn >= 0 ? displayQuestion(gameInfo, turn, info) : gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
   });
 
   buttonPass.addEventListener("click", (event) => {
     event.preventDefault();
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     turn = setNextTurn(gameInfo, turn, letter);
-    displayQuestion(gameInfo, turn, info)
+    turn >= 0 ? displayQuestion(gameInfo, turn, info) : gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
   });
 
 

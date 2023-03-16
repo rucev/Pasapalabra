@@ -32,7 +32,6 @@ export const setGameInfo = (questions, username) => {
   gameInfo.questions = createQuestionsList(questions);
   gameInfo.isGameOver = false;
   gameInfo.user = username;
-  gameInfo.round = 1;
   return gameInfo;
 };
 
@@ -49,9 +48,25 @@ const skipToUnansweredQuestion = (gameInfo, turn) => {
 export const setNextTurn = (gameInfo, turn, letter) => {
   letter.classList.remove("focus");
   turn < 26 ? turn += 1 : turn = 0;
-  turn = skipToUnansweredQuestion(gameInfo, turn);
+  checkIsGameOver(gameInfo) ? turn = -1 : turn = skipToUnansweredQuestion(gameInfo, turn)
   return turn
 }
 
+const checkIsGameOver = (gameInfo) => {
+  return gameInfo.questions.every((question) => question.isAlreadyAnswered === true);
+};
 
+export const countErrors = (gameInfo) => {
+  let errors = gameInfo.questions.filter((question) => question.isAnsweredCorrectly === false)
+  return errors.length;
+};
 
+export const updateRanking = (gameInfo, count, ranking) => {
+  const errors = countErrors(gameInfo)
+  let finalScore = {};
+  finalScore.username = gameInfo.username;
+  finalScore.score = count;
+  finalScore.errors = errors
+  ranking.push(finalScore);
+  return ranking
+}
