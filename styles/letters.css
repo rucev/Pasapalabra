@@ -53,3 +53,12 @@
     }
     
 }
+
+@media (max-width: 350px) {
+    .letterCircle{
+        width: 1em;
+        height: 1em;
+        line-height: 1em;
+        font-size: medium;
+    }
+}

@@ -81,8 +81,10 @@ a:hover {
     h1{
         font-size: 5em;
     }
-    * {
-        background: var(--blank100);
-        font-family: 'Sono', sans-serif;
+}
+
+@media (max-width: 350px) {
+    h1{
+        font-size: 2em;
     }
 }
