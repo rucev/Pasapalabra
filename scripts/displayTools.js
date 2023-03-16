@@ -80,7 +80,7 @@ export const cleanScreen = (letters, score, info) => {
   info.innerHTML = "Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra. ¡Controla tanto el tiempo como tus fallos!";
 };
 
-export const gameOver = (
+export const setGameOver = (
   gameInfo,
   count,
   info,

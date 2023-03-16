@@ -1,4 +1,4 @@
-import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen, gameOver, displayRanking} from "./displayTools.js";
+import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen, setGameOver, displayRanking} from "./displayTools.js";
 import { questions } from "./questions.js";
 import { setGameInfo, setNextTurn, updateRanking, saveRanking, loadRanking } from "./gameTools.js";
 
@@ -15,6 +15,9 @@ document.addEventListener("DOMContentLoaded", (event) => {
     ranking = loadRanking();
   };
 
+  let timeLeft = 90;
+  let timer;
+
   let info = document.querySelector(".information");
   let score = document.querySelector(".score");
   let usernameBar = document.querySelector(".name");
@@ -30,30 +33,55 @@ document.addEventListener("DOMContentLoaded", (event) => {
   const letters = document.querySelectorAll(".letterCircle");
   let letter = document.querySelector(".a");
 
+  const startTime = () => {
+    clearInterval(timer)
+    timer = setInterval(( ) =>{
+      updateTime()
+    }, 1000);
+  }
+
+  const pauseTime = () => {
+    clearInterval(timer)
+  }
+
+  const updateTime = () => {
+    let time = document.querySelector(".time");
+    time.innerHTML = --timeLeft;
+    if (timeLeft === 0) {
+      setGameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
+      pauseTime()
+    }
+  }
+
   buttonStart.addEventListener("click", (event) => {
     event.preventDefault();
     displayGame(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, answerBar);
     username = document.querySelector(".name").value;
-    gameInfo = setGameInfo(questions, username)
-    displayQuestion(gameInfo, turn, info)
+    startTime();
+    gameInfo = setGameInfo(questions, username);
+    displayQuestion(gameInfo, turn, info);
   });
 
   buttonQuit.addEventListener("click", (event) => {
     event.preventDefault();
-    gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
+    pauseTime()
+    setGameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);
   });
 
   buttonRestart.addEventListener("click", (event) => {
     event.preventDefault();
     if(gameInfo !== undefined){
-      saveRanking(updateRanking(gameInfo, count, ranking))
+      saveRanking(updateRanking(gameInfo, count, ranking));
     }
     displayMenu(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);
-    cleanScreen(letters, score, info)
+    cleanScreen(letters, score, info);
+    let time = document.querySelector(".time");
     username = "";
     gameInfo = undefined;
     turn = 0;
-    count = 0;  
+    count = 0;
+    timeLeft = 90;
+    time.innerHTML = timeLeft;
   });
 
   buttonRank.addEventListener("click", (event) => {
@@ -67,34 +95,36 @@ document.addEventListener("DOMContentLoaded", (event) => {
     event.preventDefault();
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     let userAnswer = document.querySelector(".answer").value.toLowerCase();
-    gameInfo = uploadAnswer(gameInfo, turn, userAnswer, letter)
+    gameInfo = uploadAnswer(gameInfo, turn, userAnswer, letter);
     if(gameInfo.questions[turn].isAnsweredCorrectly === false) {
       hideItem(buttonSend, buttonPass, answerBar);
       showItem(buttonNext)
+      pauseTime()
       info.innerHTML = `¡Oooh! la respuesta correcta era ${gameInfo.questions[turn].answer.toUpperCase()}`;
     } else {
       count += 1
       score.innerHTML = count;
       letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
       turn = setNextTurn(gameInfo, turn, letter);
-      turn >= 0 ? displayQuestion(gameInfo, turn, info) : gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
+      turn >= 0 ? displayQuestion(gameInfo, turn, info) : setGameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);
     }
   });
 
   buttonNext.addEventListener("click", (event) => {
     event.preventDefault();
     showItem(buttonSend, buttonPass, answerBar);
-    hideItem(buttonNext)
+    hideItem(buttonNext);
+    startTime();
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     turn = setNextTurn(gameInfo, turn, letter);
-    turn >= 0 ? displayQuestion(gameInfo, turn, info) : gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
+    turn >= 0 ? displayQuestion(gameInfo, turn, info) : setGameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);
   });
 
   buttonPass.addEventListener("click", (event) => {
     event.preventDefault();
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     turn = setNextTurn(gameInfo, turn, letter);
-    turn >= 0 ? displayQuestion(gameInfo, turn, info) : gameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart)
+    turn >= 0 ? displayQuestion(gameInfo, turn, info) : setGameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);
   });
 
 
