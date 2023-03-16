@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let gameInfo = undefined;
   let turn = 0;
   let count = 0;
-  let timeLeft = 90;
+  let timeLeft = 120;
 
   window.onload = (event) => {
     ranking = loadRanking();
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
     gameInfo = undefined;
     turn = 0;
     count = 0;
-    timeLeft = 90;
+    timeLeft = 120;
     time.innerHTML = timeLeft;
   });
 

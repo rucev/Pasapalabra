@@ -77,7 +77,7 @@ export const cleanScreen = (letters, score, info) => {
   });
   document.querySelector(".name").value = "";
   score.innerHTML = 0;
-  info.innerHTML = "Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra. ¡Controla tanto el tiempo como tus fallos!";
+  info.innerHTML = "Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra.";
 };
 
 export const setGameOver = (
