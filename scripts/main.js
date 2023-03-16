@@ -2,8 +2,6 @@ import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, show
 import { questions } from "./questions.js";
 import { setGameInfo, setNextTurn, updateRanking, saveRanking, loadRanking } from "./gameTools.js";
 
-//TODO: implement time
-
 document.addEventListener("DOMContentLoaded", (event) => {
   let ranking = [];
   let username = "";
@@ -15,6 +13,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   window.onload = (event) => {
     ranking = loadRanking();
   };
+
 
   let info = document.querySelector(".information");
   let score = document.querySelector(".score");
@@ -122,6 +121,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   buttonPass.addEventListener("click", (event) => {
     event.preventDefault();
+    document.querySelector(".answer").value = "";
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
     turn = setNextTurn(gameInfo, turn, letter);
     turn >= 0 ? displayQuestion(gameInfo, turn, info) : setGameOver(gameInfo, count, info, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);

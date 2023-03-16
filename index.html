@@ -52,8 +52,8 @@
                         Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra.
                     </div>
                     <div class="inputBar">
-                        <input class="name" type="text" placeholder="escribe tu nombre" value="" />
-                        <input class="answer hidden" type="text" placeholder="escribe la respuesta" value="" />
+                        <input class="name" onkeypress="return event.keyCode != 13;" type="text" placeholder="escribe tu nombre" value="" />
+                        <input class="answer hidden" onkeypress="return event.keyCode != 13;" type="text" placeholder="escribe la respuesta" value="" />
                     </div>
                 </div>
                 <div class="exit">

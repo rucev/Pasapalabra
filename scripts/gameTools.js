@@ -104,6 +104,7 @@ export const getHighScores = (ranking) => {
       };
     };
   };
-  topScores = [topScores[0], topScores[1], topScores[2]]
+  topScores.length < 3 ? topScores : [topScores[0], topScores[1], topScores[2]];
+  console.log(topScores)
   return topScores;
 };
