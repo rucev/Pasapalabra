@@ -1,11 +1,13 @@
-import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen, gameOver, saveRanking, loadRanking} from "./displayTools.js";
+import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen, gameOver, displayRanking} from "./displayTools.js";
 import { questions } from "./questions.js";
-import { setGameInfo, setNextTurn, updateRanking } from "./gameTools.js";
+import { setGameInfo, setNextTurn, updateRanking, saveRanking, loadRanking } from "./gameTools.js";
+
+//TODO: implement time
 
 document.addEventListener("DOMContentLoaded", (event) => {
   let ranking = [];
   let username = "";
-  let gameInfo = {};
+  let gameInfo = undefined;
   let turn = 0;
   let count = 0;
 
@@ -43,12 +45,22 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   buttonRestart.addEventListener("click", (event) => {
     event.preventDefault();
-    saveRanking(updateRanking(gameInfo, count, ranking))
+    if(gameInfo !== undefined){
+      saveRanking(updateRanking(gameInfo, count, ranking))
+    }
     displayMenu(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar, buttonRestart);
     cleanScreen(letters, score, info)
     username = "";
-    gameInfo = {};
+    gameInfo = undefined;
     turn = 0;
+    count = 0;  
+  });
+
+  buttonRank.addEventListener("click", (event) => {
+    event.preventDefault();
+    hideItem(buttonStart, buttonRank, usernameBar);
+    showItem(buttonRestart);
+    displayRanking(ranking, info);
   });
 
   buttonSend.addEventListener("click", (event) => {

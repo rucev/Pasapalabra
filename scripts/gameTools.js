@@ -64,9 +64,47 @@ export const countErrors = (gameInfo) => {
 export const updateRanking = (gameInfo, count, ranking) => {
   const errors = countErrors(gameInfo)
   let finalScore = {};
-  finalScore.username = gameInfo.username;
+  gameInfo.user === undefined || gameInfo.user === "" ? finalScore.username = "Sin Nombre" : finalScore.username = gameInfo.user;
   finalScore.score = count;
   finalScore.errors = errors
+  finalScore.relativeScore = count - errors
   ranking.push(finalScore);
   return ranking
 }
+
+export const saveRanking = (ranking) => {
+  localStorage.setItem("save-pasapalabra", JSON.stringify(ranking));
+};
+
+export const loadRanking = () => {
+  let data = localStorage.getItem("save-pasapalabra");
+  if (data !== null) {
+    return JSON.parse(data);
+  } else {
+    return [];
+  };
+};
+
+export const getHighScores = (ranking) => {
+  ranking.sort((a, b) => b.score - a.score);
+  let limit = ranking.length < 3 ? ranking.length : 3;
+  let topScores = [];
+  for (let i = 0; i < limit; i++) {
+    if(!topScores.includes(ranking[i])){
+      if(ranking[i].relativeScore === ranking[i].score){
+        topScores.push(ranking[i]);
+      };
+      let sameScore = ranking.filter((otherScores) => otherScores.score === ranking[i].score);
+      let lessErrors = sameScore.filter((otherScores) => otherScores.errors < ranking[i].errors);
+      if(sameScore.length === 1 && lessErrors.length === 0){
+        topScores.push(ranking[i]);
+      } else {
+        lessErrors.sort((a, b) => b.score - a.score);
+        topScores.push(lessErrors[0])
+        lessErrors.length > 1 ? topScores.push(lessErrors[1]) : topScores.push(ranking[i])
+      };
+    };
+  };
+  topScores = [topScores[0], topScores[1], topScores[2]]
+  return topScores;
+};

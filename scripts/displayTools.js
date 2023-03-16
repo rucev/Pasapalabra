@@ -1,4 +1,4 @@
-import { countErrors } from "./gameTools.js";
+import { countErrors, getHighScores } from "./gameTools.js";
 
 export const hideItem = (...items) => {
   items.forEach((item) => {
@@ -77,7 +77,7 @@ export const cleanScreen = (letters, score, info) => {
   });
   document.querySelector(".name").value = "";
   score.innerHTML = 0;
-  info.innerHTML = "Para jugar introduce tu nombre. Envia la respuesta de cada pregunta pulsando el botón enviar, pasa pulsando el botón pasapalabra. ¡Controla tanto el tiempo como tus fallos!";
+  info.innerHTML = "Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra. ¡Controla tanto el tiempo como tus fallos!";
 };
 
 export const gameOver = (
@@ -97,15 +97,16 @@ export const gameOver = (
   info.innerHTML = `Tu puntuación es de ${count} aciertos y ${errors} fallos.`;
 };
 
-export const saveRanking = (ranking) => {
-  localStorage.setItem("save-pasapalabra", JSON.stringify(ranking));
-};
-
-export const loadRanking = () => {
-  let data = localStorage.getItem("save-pasapalabra");
-  if (data !== null) {
-    return JSON.parse(data);
+export const displayRanking = (ranking, info) => {
+  const highScores = getHighScores(ranking);
+  if (highScores.length === 0) {
+    info.innerHTML = "Aún no hay partidas registradas. ¡Juega ya y estrena el ranking!";
   } else {
-    return [];
+    let rankingInfo = "MEJORES PUNTUACIONES";
+    console.log(highScores)
+    for (let i = 0; i < highScores.length; i++) {
+      rankingInfo += `<br>${i+1}. ${highScores[i].username} con ${highScores[i].score} aciertos y ${highScores[i].errors} fallos.`;
+    };
+    info.innerHTML = rankingInfo;
   };
-};
+}
