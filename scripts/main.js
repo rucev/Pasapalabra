@@ -10,13 +10,11 @@ document.addEventListener("DOMContentLoaded", (event) => {
   let gameInfo = undefined;
   let turn = 0;
   let count = 0;
+  let timeLeft = 90;
 
   window.onload = (event) => {
     ranking = loadRanking();
   };
-
-  let timeLeft = 90;
-  let timer;
 
   let info = document.querySelector(".information");
   let score = document.querySelector(".score");
@@ -32,6 +30,8 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
   const letters = document.querySelectorAll(".letterCircle");
   let letter = document.querySelector(".a");
+
+  let timer;
 
   const startTime = () => {
     clearInterval(timer)
