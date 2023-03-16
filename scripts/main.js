@@ -1,86 +1,84 @@
-//import { questions } from "./scripts/questions.js";
+import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen } from "./displayTools.js";
+import { questions } from "./questions.js";
+import { setGameInfo, setNextTurn } from "./gameTools.js";
 
-const hideItem = (item) => {
-  item.classList.add("hidden");
-};
+document.addEventListener("DOMContentLoaded", (event) => {
+  let ranking = [];
+  let username = "";
+  let gameInfo = {};
+  let turn = 0;
+  let count = 0;
 
-const showItem = (item) => {
-  item.classList.remove("hidden");
-};
+/*TODO: load ranking local storage
+  window.onload = (event) => {};
+*/
 
-export const displayGame = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, answerBar) => {
-  hideItem(buttonStart);
-  hideItem(buttonRank);
-  hideItem(usernameBar);
-  showItem(buttonQuit);
-  showItem(buttonSend);
-  showItem(buttonPass);
-  showItem(answerBar);
-};
+  const letters = document.querySelectorAll(".letterCircle");
+  let info = document.querySelector(".information");
+  let score = document.querySelector(".score");
+  let usernameBar = document.querySelector(".name");
+  let answerBar = document.querySelector(".answer");
+  let buttonStart = document.querySelector(".start");
+  let buttonRank = document.querySelector(".rank");
+  let buttonQuit = document.querySelector(".quit");
+  let buttonSend = document.querySelector(".send");
+  let buttonPass = document.querySelector(".pass");
+  let buttonNext = document.querySelector(".next");
 
-export const displayMenu = (buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar) => {
-  showItem(buttonStart);
-  showItem(buttonRank);
-  showItem(usernameBar);
-  hideItem(buttonQuit);
-  hideItem(buttonSend);
-  hideItem(buttonPass);
-  hideItem(buttonNext);
-  hideItem(answerBar);
-};
+  let letter = document.querySelector(".a");
 
-export const startGame = () => {
-  
-}
-
-export const displayQuestion = (gameInfo, turn, info) => {
-  let letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
-  info.innerHTML = gameInfo.questions[turn].question;
-  letter.classList.add("focus");
-};
-
-const answerQuestion = (questionInfo, buttonSend, buttonPass) => {
-  let userAnswer = "";
-  buttonSend.addEventListener("click", function (event) {
+  buttonStart.addEventListener("click", (event) => {
     event.preventDefault();
-    userAnswer = document.querySelector(".answer").value.toLowerCase();
-    if (questionInfo.answer === userAnswer) {
-      letter.classList.add("correct");
-      letter.classList.remove("focus");
-      document.querySelector(".answer").value = "";
+    displayGame(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, answerBar);
+    username = document.querySelector(".name").value;
+    gameInfo = setGameInfo(questions, username)
+    displayQuestion(gameInfo, turn, info)
+  });
+
+  buttonQuit.addEventListener("click", (event) => {
+    event.preventDefault();
+    displayMenu(buttonStart, buttonRank, usernameBar, buttonQuit, buttonSend, buttonPass, buttonNext, answerBar);
+    cleanScreen(letters, score, info)
+    username = "";
+    gameInfo = {};
+    turn = 0;
+    //TODO: save score to local storage 
+  });
+
+  buttonSend.addEventListener("click", (event) => {
+    event.preventDefault();
+    letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+    let userAnswer = document.querySelector(".answer").value.toLowerCase();
+    gameInfo = uploadAnswer(gameInfo, turn, userAnswer, letter)
+    if(gameInfo.questions[turn].isAnsweredCorrectly === false) {
+      hideItem(buttonSend, buttonPass, answerBar);
+      showItem(buttonNext)
+      info.innerHTML = `¡Oooh! la respuesta correcta era ${gameInfo.questions[turn].answer.toUpperCase()}`;
     } else {
-      letter.classList.remove("focus");
-      letter.classList.add("incorrect");
-      document.querySelector(".answer").value = "";
+      count += 1
+      score.innerHTML = count;
+      letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+      turn = setNextTurn(gameInfo, turn, letter);
+      displayQuestion(gameInfo, turn, info)
     }
   });
-  buttonPass.addEventListener("click", function (event) {
+
+  buttonNext.addEventListener("click", (event) => {
     event.preventDefault();
-    letter.classList.remove("focus");
-    document.querySelector(".answer").value = "";
+    showItem(buttonSend, buttonPass, answerBar);
+    hideItem(buttonNext)
+    letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+    turn = setNextTurn(gameInfo, turn, letter);
+    displayQuestion(gameInfo, turn, info)
   });
-  
-};
+
+  buttonPass.addEventListener("click", (event) => {
+    event.preventDefault();
+    letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
+    turn = setNextTurn(gameInfo, turn, letter);
+    displayQuestion(gameInfo, turn, info)
+  });
 
 
+});
 
-//TODO: fix game loop
-
-export const uploadAnswer = (gameInfo, turn, userAnswer, letter, buttonNext, buttonPass, buttonSend) => {
-  gameInfo.questions[turn].isAlreadyAnswered = true;
-  if (gameInfo.questions[turn].answer === userAnswer) {
-    letter.classList.add("correct");
-    letter.classList.remove("focus");
-    document.querySelector(".answer").value = "";
-    gameInfo.questions[turn].isAnsweredCorrectly = true;
-  } else {
-    letter.classList.remove("focus");
-    letter.classList.add("incorrect");
-    document.querySelector(".answer").value = "";
-    gameInfo.questions[turn].isAnsweredCorrectly = false;
-    buttonNext.classList.remove("hidden");
-    buttonPass.classList.add("hidden");
-    buttonSend.classList.add("hidden");
-  }
-  return gameInfo
-}
