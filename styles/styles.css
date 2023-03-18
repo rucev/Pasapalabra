@@ -37,7 +37,7 @@
 
 .information {
     font-family: 'Sono', sans-serif;
-    font-size: calc(0.95vw + 0.95vh);
+    font-size: calc(0.85vw + 0.85vh);
     font-weight: 600;
     color: var(--blue400);
     text-align: justify;
@@ -80,6 +80,9 @@ a:hover {
 @media (min-width: 768px) {
     h1{
         font-size: 5em;
+    }
+    .information {
+        font-size: calc(0.95vw + 0.95vh);
     }
 }
 
