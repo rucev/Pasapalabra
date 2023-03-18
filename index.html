@@ -45,7 +45,7 @@
         <div class="userInterfaceContainer">
             <form class="userInterfaceGrid">
                 <div class="scoreboard scoreboardGrid">
-                    <div class="time">400</div>
+                    <div class="time">250</div>
                     <div class="score">0</div>
                 </div>
                 <div class="questionArea questionGrid">
@@ -53,8 +53,8 @@
                         Envia la respuesta de cada pregunta pulsando el botón enviar y pasa con el de pasapalabra.
                     </div>
                     <div class="inputBar">
-                        <input class="name" onkeypress="return event.keyCode != 13;" type="text" placeholder="escribe tu nombre" value="" />
-                        <input class="answer hidden" onkeypress="return event.keyCode != 13;" type="text" placeholder="escribe la respuesta" value="" />
+                        <input class="name" onkeypress="return event.keyCode !== 13;" type="text" placeholder="escribe tu nombre" value="" />
+                        <input class="answer hidden" onkeypress="return event.keyCode !== 13;" type="text" placeholder="escribe la respuesta" value="" />
                     </div>
                 </div>
                 <div class="exit">

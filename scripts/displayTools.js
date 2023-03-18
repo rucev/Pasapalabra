@@ -98,10 +98,11 @@ export const setGameOver = (
 };
 
 export const displayRanking = (ranking, info) => {
-  const highScores = getHighScores(ranking);
-  if (highScores.length === 0) {
+  if (ranking.length === 0) {
     info.innerHTML = "Aún no hay partidas registradas. ¡Juega ya y estrena el ranking!";
   } else {
+    const highScores = getHighScores(ranking);
+    console.log(highScores)
     let rankingInfo = "MEJORES PUNTUACIONES";
     for (let i = 0; i < highScores.length; i++) {
       rankingInfo += `<br>${i+1}. ${highScores[i].username.toUpperCase()} con ${highScores[i].score} aciertos y ${highScores[i].errors} fallos.`;

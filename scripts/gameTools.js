@@ -31,7 +31,7 @@ export const setGameInfo = (questions, username) => {
   let gameInfo = {};
   gameInfo.questions = createQuestionsList(questions);
   gameInfo.isGameOver = false;
-  gameInfo.user = username;
+  username === undefined || username === "" ? gameInfo.username = "Sin Nombre" : gameInfo.username = username;
   return gameInfo;
 };
 
@@ -63,10 +63,9 @@ export const countErrors = (gameInfo) => {
 export const updateRanking = (gameInfo, count, ranking) => {
   const errors = countErrors(gameInfo)
   let finalScore = {};
-  gameInfo.user === undefined || gameInfo.user === "" ? finalScore.username = "Sin Nombre" : finalScore.username = gameInfo.user;
+  finalScore.username = gameInfo.username
   finalScore.score = count;
   finalScore.errors = errors
-  finalScore.relativeScore = count - errors
   ranking.push(finalScore);
   return ranking
 }
@@ -85,26 +84,12 @@ export const loadRanking = () => {
 };
 
 export const getHighScores = (ranking) => {
-  ranking.sort((a, b) => b.score - a.score);
-  let limit = ranking.length < 3 ? ranking.length : 3;
-  let topScores = [];
-  for (let i = 0; i < limit; i++) {
-    if(!topScores.includes(ranking[i])){
-      if(ranking[i].relativeScore === ranking[i].score){
-        topScores.push(ranking[i]);
-      };
-      let sameScore = ranking.filter((otherScores) => otherScores.score === ranking[i].score);
-      let lessErrors = sameScore.filter((otherScores) => otherScores.errors < ranking[i].errors);
-      if(sameScore.length === 1 && lessErrors.length === 0){
-        topScores.push(ranking[i]);
-      } else {
-        lessErrors.sort((a, b) => b.score - a.score);
-        topScores.push(lessErrors[0])
-        lessErrors.length > 1 ? topScores.push(lessErrors[1]) : topScores.push(ranking[i])
-      };
-    };
-  };
-  topScores.length < 3 ? topScores : [topScores[0], topScores[1], topScores[2]];
-  console.log(topScores)
-  return topScores;
+  ranking.sort((a, b)=> {
+    if (a.score === b.score){
+      return a.errors < b.errors ? -1 : 1
+    } else {
+      return b.score < a.score ? -1 : 1
+    }
+  });
+  return ranking.length < 3 ? ranking : [ranking[0], ranking[1], ranking[2]]
 };
