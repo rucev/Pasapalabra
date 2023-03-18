@@ -1,6 +1,6 @@
 import { displayGame, displayMenu, uploadAnswer, displayQuestion, hideItem, showItem, cleanScreen, setGameOver, displayRanking} from "./displayTools.js";
 import { questions } from "./questions.js";
-import { setGameInfo, setNextTurn, updateRanking, saveRanking, loadRanking } from "./gameTools.js";
+import { setGameInfo, setNextTurn, updateRanking, saveRanking, loadRanking, standardizeAnswer } from "./gameTools.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
   let ranking = [];
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", (event) => {
   buttonSend.addEventListener("click", (event) => {
     event.preventDefault();
     letter = document.querySelector(`.${gameInfo.questions[turn].letter}`);
-    let userAnswer = document.querySelector(".answer").value.toLowerCase();
+    let userAnswer = standardizeAnswer(document.querySelector(".answer").value);
     gameInfo = uploadAnswer(gameInfo, turn, userAnswer, letter);
     if(gameInfo.questions[turn].isAnsweredCorrectly === false) {
       hideItem(buttonSend, buttonPass, answerBar);

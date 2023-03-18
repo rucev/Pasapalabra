@@ -35,6 +35,10 @@ export const setGameInfo = (questions, username) => {
   return gameInfo;
 };
 
+export const standardizeAnswer = (userAnswer) => {
+   return userAnswer.trim().toLowerCase();
+};
+
 const skipToUnansweredQuestion = (gameInfo, turn) => {
   if(gameInfo.questions[turn].isAlreadyAnswered === true){
     turn < 26 ? turn += 1 : turn = 0;
@@ -42,14 +46,14 @@ const skipToUnansweredQuestion = (gameInfo, turn) => {
   } else {
     return turn;
   }
-}
+};
 
 export const setNextTurn = (gameInfo, turn, letter) => {
   letter.classList.remove("focus");
   turn < 26 ? turn += 1 : turn = 0;
   checkIsGameOver(gameInfo) ? turn = -1 : turn = skipToUnansweredQuestion(gameInfo, turn)
-  return turn
-}
+  return turn;
+};
 
 const checkIsGameOver = (gameInfo) => {
   return gameInfo.questions.every((question) => question.isAlreadyAnswered === true);
@@ -67,8 +71,8 @@ export const updateRanking = (gameInfo, count, ranking) => {
   finalScore.score = count;
   finalScore.errors = errors
   ranking.push(finalScore);
-  return ranking
-}
+  return ranking;
+};
 
 export const saveRanking = (ranking) => {
   localStorage.setItem("save-pasapalabra", JSON.stringify(ranking));
@@ -86,10 +90,10 @@ export const loadRanking = () => {
 export const getHighScores = (ranking) => {
   ranking.sort((a, b)=> {
     if (a.score === b.score){
-      return a.errors < b.errors ? -1 : 1
+      return a.errors < b.errors ? -1 : 1;
     } else {
-      return b.score < a.score ? -1 : 1
-    }
+      return b.score < a.score ? -1 : 1;
+    };
   });
-  return ranking.length < 3 ? ranking : [ranking[0], ranking[1], ranking[2]]
+  return ranking.length < 3 ? ranking : [ranking[0], ranking[1], ranking[2]];
 };
