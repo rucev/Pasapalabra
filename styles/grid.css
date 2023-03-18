@@ -11,8 +11,11 @@
     justify-content: center;
     align-items: center;
     max-width: 90%;
-    margin-bottom: 1.25%;
+    min-height: 75px;
+    height: 5vh;
+    margin: 5% 0 2%;
 }
+
 .lettersGrid {
     display: grid;
     grid-template-columns: repeat(9, 2.25em);
@@ -117,6 +120,17 @@
         align-items: center;
     }
 
+    .lettersContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 90%;
+        min-height: 75px;
+        height: 30vh;
+        margin: 5.25% 0 3%;
+    }
+
     .lettersGrid{
         grid-template-columns: repeat(9, 5em);
         grid-template-rows: repeat(3, 5em);
@@ -145,6 +159,16 @@
         padding: 5%;
     }
     
+    .lettersContainer{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        max-width: 90%;
+        min-height: 75px;
+        height: 5vh;
+        margin: 0.25% 0;
+    }
 
     .userInterfaceGrid{
         display: grid;
