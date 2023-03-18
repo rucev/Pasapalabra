@@ -87,4 +87,8 @@ a:hover {
     h1{
         font-size: 2em;
     }
+    .information {
+        font-size: calc(0.75vw + 0.75vh);
+        font-family: 'Sono', sans-serif;
+    }
 }
