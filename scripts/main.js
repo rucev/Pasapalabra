@@ -3,6 +3,9 @@ import { questions } from "./questions.js";
 import { setGameInfo, setNextTurn, updateRanking, saveRanking, loadRanking, standardizeAnswer } from "./gameTools.js";
 
 document.addEventListener("DOMContentLoaded", (event) => {
+  getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
+
+
   let ranking = [];
   let username = "";
   let gameInfo = undefined;
