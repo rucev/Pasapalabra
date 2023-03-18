@@ -108,12 +108,13 @@
 @media (max-width: 350px) {
 
   .button {
-    font-size: calc(0.75vw + 0.75vh);
+    font-size: 0.45rem;
+    line-height: 0.5rem;
   }
 
   .send {
-    font-size: calc(0.75vw + 0.75vh);
-    line-height: calc(0.75vw + 0.75vh);
+    font-size: 0.45rem;
+    line-height: 0.5rem;
   }
   
   input[type=text] {
@@ -123,7 +124,7 @@
   } 
 
   input::placeholder {
-      font-size: 0.75em;
+      font-size: 0.45rem;
       line-height: 1em;
       font-family: 'Sono', sans-serif;
   }

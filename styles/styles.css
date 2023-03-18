@@ -30,14 +30,14 @@
 }
 
 
-* {
+body {
     background: var(--blank100);
     font-family: 'Sono', sans-serif;
 }
 
 .information {
     font-family: 'Sono', sans-serif;
-    font-size: calc(0.85vw + 0.85vh);
+    font-size: 0.55rem;
     font-weight: 600;
     color: var(--blue400);
     text-align: justify;
@@ -54,7 +54,6 @@ h1{
     text-shadow: var(--blue400) 2px 0 1px;
     color: var(--blue200);
     font-size: 3em;
-    color: orange;
     font-weight: 800;
 }
 
@@ -83,7 +82,7 @@ a:hover {
         font-size: 5em;
     }
     .information {
-        font-size: calc(0.95vw + 0.95vh);
+        font-size: 1.05rem;
     }
 }
 
@@ -92,7 +91,7 @@ a:hover {
         font-size: 2em;
     }
     .information {
-        font-size: calc(0.75vw + 0.75vh);
+        font-size: 0.45rem;
         font-family: 'Sono', sans-serif;
     }
 }
