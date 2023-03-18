@@ -139,9 +139,16 @@
         grid-row-gap: 0.25em;
     }
 
+    .userInterfaceContainer{
+        min-width: 90%;
+        min-height: 70px;
+        padding: 5%;
+    }
+    
+
     .userInterfaceGrid{
         display: grid;
         grid-template-columns: repeat(5, 20%);
-        grid-template-rows: 70px 30px;
+        grid-template-rows: 50px 20px;
     }
 }

@@ -55,7 +55,7 @@
   box-shadow: var(--blank400) 0 4px 12px;
 }
 
-.send {
+.sendAnswer {
   align-items: center;
   background-clip: padding-box;
   background-image: radial-gradient(circle, var(--green100), var(--green200));
@@ -76,12 +76,12 @@
   width: auto;
 }
 
-.send:hover,
-.send:focus {
+.sendAnswer:hover,
+.sendAnswer:focus {
   box-shadow: var(--blank400) 0 4px 12px;
 }
 
-.send:hover {
+.sendAnswer:hover {
   transform: translateY(-1px);
 }
 
@@ -97,7 +97,7 @@
     min-width: 4em;
   }
 
-  .send {
+  .sendAnswer {
     font-size: 1.25em;
     height: 2em;
     line-height: 1.25em;
@@ -112,22 +112,11 @@
     line-height: 0.5rem;
   }
 
-  .send {
+  .sendAnswer {
     font-size: 0.45rem;
     line-height: 0.5rem;
   }
   
-  input[type=text] {
-      font-size: 0.65em;
-      line-height: 1em;
-      height: 0.75em;
-  } 
-
-  input::placeholder {
-      font-size: 0.45rem;
-      line-height: 1em;
-      font-family: 'Sono', sans-serif;
-  }
 }
 
 
