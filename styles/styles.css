@@ -54,6 +54,7 @@ h1{
     text-shadow: var(--blue400) 2px 0 1px;
     color: var(--blue200);
     font-size: 3em;
+    color: orange;
     font-weight: 800;
 }
 
