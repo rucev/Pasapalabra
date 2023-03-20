@@ -61,7 +61,7 @@
 .userInterfaceGrid {
     display: grid;
     grid-template-columns: repeat(5, 20%);
-    grid-template-rows: 70px 30px;
+    grid-template-rows: 100px 30px;
 }
 
     .scoreboard {grid-area: 1 / 1 / 2 / 2;}
@@ -108,18 +108,11 @@
     margin-bottom: 0.15em;
     }
     
-    .information {
-        overflow: hidden;
-    }
+.information {
+    overflow: hidden;
+}
 
 @media (min-width: 768px) {
-    .mainContainer {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
     .lettersContainer{
         display: flex;
         flex-direction: column;
@@ -128,7 +121,7 @@
         max-width: 90%;
         min-height: 75px;
         height: 30vh;
-        margin: 5.25% 0 3%;
+        margin: 10% 0 3%;
     }
 
     .lettersGrid{
@@ -173,6 +166,6 @@
     .userInterfaceGrid{
         display: grid;
         grid-template-columns: repeat(5, 20%);
-        grid-template-rows: 50px 20px;
+        grid-template-rows: 90px 20px;
     }
 }

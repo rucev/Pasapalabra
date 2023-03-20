@@ -31,13 +31,14 @@
 
 
 body {
+    margin-top: 4%;
     background: var(--blank100);
     font-family: 'Sono', sans-serif;
 }
 
 .information {
     font-family: 'Sono', sans-serif;
-    font-size: 0.55rem;
+    font-size: 0.85rem;
     font-weight: 600;
     color: var(--blue400);
     text-align: justify;
@@ -89,7 +90,7 @@ a:hover {
         font-size: calc(3vw + 3vh);
     }
     .information {
-        font-size: 0.45rem;
+        font-size: 0.65rem;
         font-family: 'Sono', sans-serif;
     }
 }
